@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8">
+    <title>Bauklotz-Spiel</title>
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aframe-physics-system@4.0.1/dist/aframe-physics-system.min.js"></script>
+    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <!-- Hinweis oben rechts -->
+    <div id="esc-hint">Drücke <b>ESC</b>, um die Spielanleitung öffnen zu können.</div>
+    <!-- Anweisungen für die Steuerung -->
+    <div id="instruction" class="collapsed">
+      <button id="toggle-instruction">Spielanleitung</button>
+      <div id="instruction-content" style="display:none;">
+        <h3>Bewegen</h3><br>
+        <img src="Bilder/wasd.png" alt="WASD Tasten" style="width:100px; margin:8px 0;"><br>
+        <h3>Block erstellen</h3><br>
+        Klicke mit der <b>linken Maustaste</b>, um Blöcke zu erstellen, und mit der <b>rechten Maustaste</b>, um sie zu löschen. Achte dabei darauf, dass der Cursor auf die richtige Stelle gerichtet ist.<br>
+        <h3>Kamera-Höhe</h3><br>
+        Mit <b>+</b> und <b>-</b> kannst du die Höhe der Kamera verändern.
+        <h3>Blockfarbe ändern</h3><br>
+        Drücke die Tasten <b>1</b> bis <b>5</b>, um die Blockfarbe zu wechseln.<br>
+        <h3>Tageszeitwechsel</h3><br>
+        Klicke auf die Sonne/Mond über dir, um zwischen Tag und Nacht zu wechseln.<br>
+      </div>
+    </div>
+    <!-- Farbauswahl am unteren Bildschirmrand -->
+    <div id="color-picker">
+      <button class="color-btn" data-color="#000000" style="background:#000000"><span class="color-label">1</span></button>
+      <button class="color-btn" data-color="#8B4513" style="background:#8B4513"><span class="color-label">2</span></button>
+      <button class="color-btn" data-color="#228B22" style="background:#228B22"><span class="color-label">3</span></button>
+      <button class="color-btn" data-color="#1E90FF" style="background:#1E90FF"><span class="color-label">4</span></button>
+      <button class="color-btn" data-color="#FF0000" style="background:#FF0000"><span class="color-label">5</span></button>
+    </div>
+    <a-scene background="color: #fff" id="scene">
+        <a-entity id="content" block-builder></a-entity>
+        <a-camera look-controls="pointerLockEnabled: true" wasd-controls>
+            <a-cursor></a-cursor>
+        </a-camera>
+        <!-- Sonne/Mond -->
+        <a-sphere id="toggle-sky" position="0 8 0" radius="1" color="#FFD700" shadow="cast: true" 
+          event-set__enter="_event: mouseenter; color: #FFF700"
+          event-set__leave="_event: mouseleave; color: #FFD700"
+          ></a-sphere>
+        <!-- Grüner Boden -->
+        <a-entity id="ground" position="0 0.5 0" geometry="primitive: plane; width: 100; height: 100" material="color: #175b17" rotation="-90 0 0"></a-entity>
+        <!-- Sky-Entity für Bildhintergrund -->
+        <a-sky id="sky" src="Bilder/day.jpeg"></a-sky>
+    </a-scene>
+  </body>
+</html>
